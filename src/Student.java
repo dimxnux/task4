@@ -1,7 +1,5 @@
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,10 +13,12 @@ public class Student {
     private String lastName;
     private int age;
     private boolean eligibleForErasmusScholarship;
-    private List<University> universitiesForApplication = new ArrayList<>();
+
+    // Universities the student would like to visit
+    private final List<University> universitiesForApplication = new ArrayList<>();
 
     public Student(String firstName, String lastName, int age) {
-        this.id = idGenerator.get();
+        this.id = idGenerator.incrementAndGet();
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
@@ -40,14 +40,22 @@ public class Student {
         return age;
     }
 
-    public boolean readyForErasmus(LocalDateTime start, LocalDateTime end) {
-        LocalDateTime d = LocalDate.parse("2007-12-03").atStartOfDay();
-
-        return !(d.isBefore(start) && d.isAfter(end));
+    public List<University> getUniversitiesForApplication() {
+        return Collections.unmodifiableList(universitiesForApplication);
     }
 
-    public void addUniversityForApplication() {
+    public void addUniversityForApplication(University university) {
+        universitiesForApplication.add(university);
+    }
 
+    public boolean wantsToApplyFor(University university) {
+        for (University u : universitiesForApplication) {
+            if (u.equals(university)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @Override
