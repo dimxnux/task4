@@ -17,7 +17,6 @@ public class University {
         return name;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,6 +30,14 @@ public class University {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "University{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
 }

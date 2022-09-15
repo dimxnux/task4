@@ -5,11 +5,11 @@ import java.util.*;
 
 public class StudentsRegistrationHistory {
 
-    public static Map<Long, LocalDateTime> registrationHistory = new HashMap<>();
+    private final Map<Long, LocalDateTime> registrationHistory = new HashMap<>();
 
-    public void addRecord(Student student, LocalDateTime registrationDate) {
+    public void addRecord(Student student, LocalDateTime registration) {
         // avoid potential overwrite of the registration date
-        registrationHistory.putIfAbsent(student.getId(), registrationDate);
+        registrationHistory.putIfAbsent(student.getId(), registration);
     }
 
     public Set<Map.Entry<Long, LocalDateTime>> getAllRecords() {
