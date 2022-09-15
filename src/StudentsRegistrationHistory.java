@@ -1,15 +1,15 @@
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class StudentsRegistrationHistory {
 
-    public static Map<Long, LocalDateTime> registrationHistory = new HashMap<>();
+    private final Map<Long, LocalDateTime> registrationHistory = new HashMap<>();
 
-    public void addRecord(Student student, LocalDateTime registrationDate) {
+    public void addRecord(Student student, LocalDateTime registration) {
         // avoid potential overwrite of the registration date
-        registrationHistory.putIfAbsent(student.getId(), registrationDate);
+        registrationHistory.putIfAbsent(student.getId(), registration);
     }
 
     public Set<Map.Entry<Long, LocalDateTime>> getAllRecords() {
